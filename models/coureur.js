@@ -41,6 +41,10 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       defaultValue: '0'
     },
+    coureur_certificat_fichier: {
+        type: DataTypes.STRING(128),
+        allowNull: true
+    },
     coureur_paiement: {
       type: DataTypes.INTEGER(4),
       allowNull: true,
