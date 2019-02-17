@@ -256,29 +256,32 @@ router.put('/certificat/:id', function(req, res, next) {
 
 router.delete('/:id', function(req, res, next) {
 
-	Coureur.destroy({ where: {
-			coureur_id : req.params.id,
-		}})
-		.then( result => {
-			if (result > 0) {
-				res.status(204).end();
-			} else {
-				res.status(202);
-				res.send({
-					"error": "NotFound",
-					"code": 404,
-					"message": "Le coureur n'existe pas"
-				});
+		Coureur.destroy({
+			where: {
+				coureur_id: req.params.id,
 			}
 		})
-		.catch(err => {
-			res.status(500);
-			res.send({
-				"error": "InternalServerError",
-				"code": 500,
-				"message": "Probleme pour supprimer le coureur : "+err.message
+			.then(result => {
+				if (result > 0) {
+					res.status(204).end();
+				} else {
+					res.status(202);
+					res.send({
+						"error": "NotFound",
+						"code": 404,
+						"message": "Le coureur n'existe pas"
+					});
+				}
+			})
+			.catch(err => {
+				res.status(500);
+				res.send({
+					"error": "InternalServerError",
+					"code": 500,
+					"message": "Probleme pour supprimer le coureur : " + err.message
+				});
 			});
-		});
+
 });
 
 module.exports = router;

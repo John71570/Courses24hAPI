@@ -117,130 +117,140 @@ router.get('/nom/:nom', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
 
-	Equipe.findOne({ where: {
-			equipe_nom: req.body.equipe.equipe_nom,
-		}})
-		.then( result => {
-			//If raw does not exist yet
-			if(result == null){
-				//Save the new role
-				var equipeJSON = req.body.equipe;
-				equipeJSON.equipe_id =  uuidv4();
-				equipeJSON.equipe_sel = Date.now();
-				equipeJSON.equipe_mdp = sha256.x2(req.body.equipe.equipe_mdp+equipeJSON.equipe_sel);
-				equipeJSON.equipe_valide = 0;
 
-				Equipe.create(equipeJSON)
-					.then( result2 => {
-						res.status(201);
-						res.send({
-							"code": 201
-						});
-					})
-					.catch( err =>{
-						res.status(500);
-						res.send({
-							"error": "InternalServerError",
-							"code": 500,
-							"message": "Création de l'équipe impossible :"+err
-						});
-					});
-				//If role exists yet
-			}else{
-				res.status(202);
-				res.send({
-					"error": "EquipeAlreadyExist",
-					"code": 409,
-					"message": "L'équipe existe déjà"
-				});
+		Equipe.findOne({
+			where: {
+				equipe_nom: req.body.equipe.equipe_nom,
 			}
 		})
-		.catch( err =>{
-			res.send({
-				"error": "InternalServerError",
-				"code": 500,
-				"message": "Probleme pour vérifier l'existence de l'équipe : "+err.message
+			.then(result => {
+				//If raw does not exist yet
+				if (result == null) {
+					//Save the new role
+					var equipeJSON = req.body.equipe;
+					equipeJSON.equipe_id = uuidv4();
+					equipeJSON.equipe_sel = Date.now();
+					equipeJSON.equipe_mdp = sha256.x2(req.body.equipe.equipe_mdp + equipeJSON.equipe_sel);
+					equipeJSON.equipe_valide = 0;
+
+					Equipe.create(equipeJSON)
+						.then(result2 => {
+							res.status(201);
+							res.send({
+								"code": 201
+							});
+						})
+						.catch(err => {
+							res.status(500);
+							res.send({
+								"error": "InternalServerError",
+								"code": 500,
+								"message": "Création de l'équipe impossible :" + err
+							});
+						});
+					//If role exists yet
+				} else {
+					res.status(202);
+					res.send({
+						"error": "EquipeAlreadyExist",
+						"code": 409,
+						"message": "L'équipe existe déjà"
+					});
+				}
+			})
+			.catch(err => {
+				res.send({
+					"error": "InternalServerError",
+					"code": 500,
+					"message": "Probleme pour vérifier l'existence de l'équipe : " + err.message
+				});
 			});
-		});
+
 
 });
 
 router.put('/:id', function(req, res, next) {
 
-	if(req.is('application/json')){
+		if (req.is('application/json')) {
 
-		Equipe.findOne({ where: {
-				equipe_id : req.params.id
-			} })
-			.then( result =>{
+			Equipe.findOne({
+				where: {
+					equipe_id: req.params.id
+				}
+			})
+				.then(result => {
 
-				if (result) {
+					if (result) {
 
-					result.update(req.body.equipe)
-						.then( result2 => {
-							res.status(204).end();
-						}).catch( err => {
+						result.update(req.body.equipe)
+							.then(result2 => {
+								res.status(204).end();
+							}).catch(err => {
 							res.status(500);
 							res.send({
 								"error": "InternalServerError",
 								"code": 500,
-								"message": "Problem pour mettre à jour l'équipe : "+err
+								"message": "Problem pour mettre à jour l'équipe : " + err
 							});
 						});
 
-				} else {
-					res.status(202);
+					} else {
+						res.status(202);
+						res.send({
+							"error": "NotFound",
+							"code": 202,
+							"message": "L'équipe n'existe pas"
+						});
+					}
+				})
+				.catch(err => {
 					res.send({
-						"error": "NotFound",
-						"code": 202,
-						"message": "L'équipe n'existe pas"
+						"error": "InternalServerError",
+						"code": 500,
+						"message": "Probleme pour vérifier l'existence de l'équipe : " + err
 					});
-				}
-			})
-			.catch( err =>{
-				res.send({
-					"error": "InternalServerError",
-					"code": 500,
-					"message": "Probleme pour vérifier l'existence de l'équipe : "+err
 				});
-			});
 
-	}else{
-		res.status(406);
-		res.send({
-			"error": "BadContentType",
-			"code": 406,
-			"message": "Content-type received: "+req.get('Content-Type')+". Content-type required : application/json"
-		});
-	}
+		} else {
+			res.status(406);
+			res.send({
+				"error": "BadContentType",
+				"code": 406,
+				"message": "Content-type received: " + req.get('Content-Type') + ". Content-type required : application/json"
+			});
+		}
 
 });
 
 router.delete('/:id', function(req, res, next) {
 
-	Equipe.destroy({ where: {
-			equipe_id : req.params.id,
-		}})
-		.then( result => {
-			if (result > 0) {
-				res.status(204).end();
-			} else {
-				res.status(202);
-				res.send({
-					"error": "NotFound",
-					"code": 404,
-					"message": "L'équipe n'existe pas"
-				});
+
+		Equipe.destroy({
+			where: {
+				equipe_id: req.params.id,
 			}
 		})
-		.catch(err => {
-			res.status(500);
-			res.send({
-				"error": "InternalServerError",
-				"code": 500,
-				"message": "Probleme pour supprimer l'équipe : "+err.message
+			.then(result => {
+				if (result > 0) {
+					res.status(204).end();
+				} else {
+					res.status(202);
+					res.send({
+						"error": "NotFound",
+						"code": 404,
+						"message": "L'équipe n'existe pas"
+					});
+				}
+			})
+			.catch(err => {
+				res.status(500);
+				res.send({
+					"error": "InternalServerError",
+					"code": 500,
+					"message": "Probleme pour supprimer l'équipe : " + err.message
+				});
 			});
-		});
+
 });
 
 module.exports = router;

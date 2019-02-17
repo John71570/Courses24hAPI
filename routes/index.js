@@ -48,89 +48,123 @@ router.get('/admin', function(req, res, next) {
 
 router.get('/admin/coureurs', function(req, res, next) {
 
-	Equipe.findAll({ raw: true, include: [{model: Coureur},{model: Categorie}], order:[['equipe_nom','DESC']]})
-		.then( coureur => {
-			if (coureur) {
-				res.render('coureurs', { coureurs: coureur });
-			} else {
-				res.status(202);
+	if(req.session.user){
+		Equipe.findAll({ raw: true, include: [{model: Coureur},{model: Categorie}], order:[['equipe_nom','DESC']]})
+			.then( coureur => {
+				if (coureur) {
+					res.render('coureurs', { coureurs: coureur });
+				} else {
+					res.status(202);
+					res.send({
+						"error": "NotFound",
+						"code": 404,
+						"message": "Aucun coureur pour cette équipe"
+					});
+				}
+			})
+			.catch( err => {
+				res.status(500);
 				res.send({
-					"error": "NotFound",
-					"code": 404,
-					"message": "Aucun coureur pour cette équipe"
+					"error": "InternalServerError",
+					"code": 500,
+					"message": "Problem pour trouver les coureurs de l'équipe : "+err
 				});
-			}
-		})
-		.catch( err => {
-			res.status(500);
-			res.send({
-				"error": "InternalServerError",
-				"code": 500,
-				"message": "Problem pour trouver les coureurs de l'équipe : "+err
 			});
-		});
+	}else{
+		res.redirect('/');
+	}
 
 });
 
 router.get('/admin/equipes', function(req, res, next) {
 
-	var promiseCategories = Categorie.findAll({ raw: true, order:[['categorie_nom','DESC']] });
-	var promiseEquipe = Equipe.findAll({ raw: true, include: [{model: Categorie}] });
-	var promiseCoureur = Equipe.findAll({ raw: true, include: [{model: Coureur},{model: Categorie}], order:[['equipe_nom','DESC']]});
+	if(req.session.user){
+		var promiseCategories = Categorie.findAll({ raw: true, order:[['categorie_nom','DESC']] });
+		var promiseEquipe = Equipe.findAll({ raw: true, include: [{model: Categorie}] });
+		var promiseCoureur = Equipe.findAll({ raw: true, include: [{model: Coureur},{model: Categorie}], order:[['equipe_nom','DESC']]});
 
-	var promises = [];
-	var promisess = [];
+		var promises = [];
+		var promisess = [];
 
-	Promise.all([promiseCategories, promiseCoureur, promiseEquipe, promises])
-		.then( result => {
-			if (result[0]) {
-				result[0].forEach((elem, index)=>{
-					promises.push(sequelize.query('SELECT COUNT (DISTINCT equipe_id) AS nb FROM equipe WHERE equipe_categorie = :categorie ', { replacements: { categorie: elem.categorie_id }, type: sequelize.QueryTypes.SELECT }));
-				});
-				result[0].forEach((eleme, index)=>{
-					promisess.push(sequelize.query('SELECT COUNT (DISTINCT coureur_id) AS nbc FROM coureur INNER JOIN equipe ON equipe.equipe_id = coureur.coureur_equipe WHERE equipe.equipe_categorie = :categorie ', { replacements: { categorie: eleme.categorie_id }, type: sequelize.QueryTypes.SELECT }));
-				});
-				Promise.all(promises)
-					.then(ress =>{
-						ress.forEach((ee, i)=>{
-							result[0][i]['nb_equipes'] = ee[0]['nb'];
-						});
-						Promise.all(promisess)
-							.then(resss => {
-								resss.forEach((ee, i) => {
-									result[0][i]['nb_coureurs'] = ee[0]['nbc'];
-								});
-								res.render('equipes', {coureurs: result[1], categories: result[0], equipes: result[2]});
-							})
-							.catch(err =>{
-
-							});
-					})
-					.catch(err =>{
-
+		Promise.all([promiseCategories, promiseCoureur, promiseEquipe, promises])
+			.then( result => {
+				if (result[0]) {
+					result[0].forEach((elem, index)=>{
+						promises.push(sequelize.query('SELECT COUNT (DISTINCT equipe_id) AS nb FROM equipe WHERE equipe_categorie = :categorie ', { replacements: { categorie: elem.categorie_id }, type: sequelize.QueryTypes.SELECT }));
 					});
+					result[0].forEach((eleme, index)=>{
+						promisess.push(sequelize.query('SELECT COUNT (DISTINCT coureur_id) AS nbc FROM coureur INNER JOIN equipe ON equipe.equipe_id = coureur.coureur_equipe WHERE equipe.equipe_categorie = :categorie ', { replacements: { categorie: eleme.categorie_id }, type: sequelize.QueryTypes.SELECT }));
+					});
+					Promise.all(promises)
+						.then(ress =>{
+							ress.forEach((ee, i)=>{
+								result[0][i]['nb_equipes'] = ee[0]['nb'];
+							});
+							Promise.all(promisess)
+								.then(resss => {
+									resss.forEach((ee, i) => {
+										result[0][i]['nb_coureurs'] = ee[0]['nbc'];
+									});
+									res.render('equipes', {coureurs: result[1], categories: result[0], equipes: result[2]});
+								})
+								.catch(err =>{
 
-			} else {
-				res.status(202);
+								});
+						})
+						.catch(err =>{
+
+						});
+
+				} else {
+					res.status(202);
+					res.send({
+						"error": "NotFound",
+						"code": 404,
+						"message": "Aucun coureur pour cette équipe"
+					});
+				}
+			})
+			.catch( err => {
+				res.status(500);
 				res.send({
-					"error": "NotFound",
-					"code": 404,
-					"message": "Aucun coureur pour cette équipe"
+					"error": "InternalServerError",
+					"code": 500,
+					"message": "Problem pour trouver les coureurs de l'équipe : "+err
 				});
-			}
-		})
-		.catch( err => {
-			res.status(500);
-			res.send({
-				"error": "InternalServerError",
-				"code": 500,
-				"message": "Problem pour trouver les coureurs de l'équipe : "+err
 			});
-		});
+	}else{
+		res.redirect('/');
+	}
 
 });
 
 router.get('/admin/categories', function(req, res, next) {
+
+	if(req.session.user){
+		Categorie.findAll({ raw: true })
+			.then( categories => {
+				if (categories) {
+					res.render('categories', { categories: categories });
+				} else {
+					res.status(202);
+					res.send({
+						"error": "NotFound",
+						"code": 404,
+						"message": "Aucun coureur pour cette équipe"
+					});
+				}
+			})
+			.catch( err => {
+				res.status(500);
+				res.send({
+					"error": "InternalServerError",
+					"code": 500,
+					"message": "Problem pour trouver les coureurs de l'équipe : "+err
+				});
+			});
+	}else{
+		res.redirect('/');
+	}
 
 	Categorie.findAll({ raw: true })
 		.then( categories => {
