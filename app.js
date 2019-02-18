@@ -42,8 +42,10 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('css',express.static(path.join(__dirname,'public/css')));
-app.use('js',express.static(path.join(__dirname,'public/js')));
+app.use('/css',express.static(path.join(__dirname,'public/css')));
+app.use('/js',express.static(path.join(__dirname,'public/js')));
+app.use('/vendor',express.static(path.join(__dirname,'public/vendor')));
+app.use('/javascripts',express.static(path.join(__dirname,'public/javascripts')));
 
 app.use('/', indexRouter);
 app.use('/coureur', coureurRouter);

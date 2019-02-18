@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8b34a906-9499-4dec-b8b4-89995bd79061" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -17,11 +16,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="41" column="28" selection-start-line="41" selection-start-column="28" selection-end-line="41" selection-end-column="28" />
+            <state relative-caret-position="216">
+              <caret line="40" column="41" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
               <folding>
                 <element signature="e#462#482#0" />
                 <element signature="e#528#1247#0" />
@@ -32,6 +31,7 @@
                 <element signature="e#942#1043#0" />
                 <element signature="e#1073#1242#0" />
                 <element signature="e#1107#1236#0" />
+                <element signature="e#1292#1321#0" />
                 <element signature="e#1297#1378#0" />
                 <element signature="e#1320#1347#0" />
                 <element signature="e#1351#1376#0" />
@@ -86,6 +86,15 @@
                 <element signature="e#5634#5694#0" />
                 <element signature="e#5698#5757#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="392">
+              <caret line="47" column="78" selection-start-line="47" selection-start-column="78" selection-end-line="47" selection-end-column="78" />
             </state>
           </provider>
         </entry>
@@ -146,7 +155,6 @@
         <option value="$PROJECT_DIR$/views/categories.ejs" />
         <option value="$PROJECT_DIR$/public/js/script-categories.js" />
         <option value="$PROJECT_DIR$/models/coureur.js" />
-        <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/views/coureurs.ejs" />
         <option value="$PROJECT_DIR$/views/connexion.ejs" />
         <option value="$PROJECT_DIR$/public/js/script-coureurs.js" />
@@ -157,6 +165,7 @@
         <option value="$PROJECT_DIR$/routes/equipe.js" />
         <option value="$PROJECT_DIR$/bin/www" />
         <option value="$PROJECT_DIR$/routes/index.js" />
+        <option value="$PROJECT_DIR$/app.js" />
       </list>
     </option>
   </component>
@@ -200,12 +209,7 @@
             <path>
               <item name="Courses24Maker" type="b2602c69:ProjectViewProjectNode" />
               <item name="Courses24Maker" type="462c0819:PsiDirectoryNode" />
-              <item name="bin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Courses24Maker" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Courses24Maker" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -216,7 +220,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="7.7.3" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../24h de l'INSA (Site NodeJS)" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -264,16 +268,15 @@
       <workItem from="1549710757421" duration="17814000" />
       <workItem from="1549872574053" duration="31705000" />
       <workItem from="1550251686612" duration="19187000" />
-      <workItem from="1550509202323" duration="50000" />
+      <workItem from="1550509202323" duration="1202000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="72135000" />
+    <option name="totallyTimeSpent" value="73287000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.84822696" visible="true" weight="0.13066386" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -468,13 +471,6 @@
     <entry file="file://$PROJECT_DIR$/views/error.ejs">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="716">
-          <caret line="40" column="34" selection-start-line="40" selection-start-column="34" selection-end-line="40" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/connexion.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
@@ -571,8 +567,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="41" column="28" selection-start-line="41" selection-start-column="28" selection-end-line="41" selection-end-column="28" />
+        <state relative-caret-position="216">
+          <caret line="40" column="41" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
           <folding>
             <element signature="e#462#482#0" />
             <element signature="e#528#1247#0" />
@@ -583,6 +579,7 @@
             <element signature="e#942#1043#0" />
             <element signature="e#1073#1242#0" />
             <element signature="e#1107#1236#0" />
+            <element signature="e#1292#1321#0" />
             <element signature="e#1297#1378#0" />
             <element signature="e#1320#1347#0" />
             <element signature="e#1351#1376#0" />
@@ -637,6 +634,13 @@
             <element signature="e#5634#5694#0" />
             <element signature="e#5698#5757#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="47" column="78" selection-start-line="47" selection-start-column="78" selection-end-line="47" selection-end-column="78" />
         </state>
       </provider>
     </entry>
