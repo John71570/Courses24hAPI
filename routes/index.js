@@ -38,6 +38,10 @@ router.get('/admi', function(req, res, next) {
 
 });
 
+router.get('/', function(req, res, next) {
+	res.redirect('/connexion');
+});
+
 router.get('/admin', function(req, res, next) {
 	if(req.session.user){
 		res.render('admin');
