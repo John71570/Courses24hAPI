@@ -7,36 +7,8 @@ var Coureur = sequelize.import('../models/coureur');
 Equipe.hasMany(Coureur, {foreignKey: 'coureur_equipe', sourceKey: 'equipe_id'});
 Equipe.belongsTo(Categorie, {foreignKey: 'equipe_categorie', sourceKey: 'categorie_id'});
 
+
 /* GET home page. */
-router.get('/admi', function(req, res, next) {
-
-	//var categoriesPromise = Categorie.findAll({ raw: true, order:[['categorie_nom','DESC']] });
-	//var equipePromise = Equipe.findAll({ raw: true });
-	//console.log();
-
-	Equipe.findAll({ raw: true, include: [{model: Coureur},{model: Categorie}], order:[['equipe_nom','DESC']]})
-		.then( coureur => {
-			if (coureur) {
-				res.render('index', { coureurs: coureur });
-			} else {
-				res.status(202);
-				res.send({
-					"error": "NotFound",
-					"code": 404,
-					"message": "Aucun coureur pour cette équipe"
-				});
-			}
-		})
-		.catch( err => {
-			res.status(500);
-			res.send({
-				"error": "InternalServerError",
-				"code": 500,
-				"message": "Problem pour trouver les coureurs de l'équipe : "+err
-			});
-		});
-
-});
 
 router.get('/', function(req, res, next) {
 	res.redirect('/connexion');

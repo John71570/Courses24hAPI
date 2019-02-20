@@ -21,7 +21,7 @@ const sequelize = new Sequelize('db_courses', 'root', 'root', {
 	host: 'localhost',
 	dialect: 'mysql',
 	operatorsAliases: false,
-
+	port: 4001,
 	pool: {
 		max: 5,
 		min: 0,

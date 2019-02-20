@@ -154,7 +154,7 @@ $( document ).ready(function() {
 
 		});
 
-		$('#btnYESS').click(function(){
+		$('#btnYES').click(function(){
 			$row.remove();
 			$.ajax({
 				type: "DELETE",
@@ -370,15 +370,15 @@ $( document ).ready(function() {
 	}
 
 	supprimer = function (id) {
-		$('#modalConfirmDelete').modal({
+		$('#modalConfirmDelete2').modal({
 			show: true
 		});
 
-		$('#btnNO').click(function(){
+		$('#btn2NO').click(function(){
 
 		});
 
-		$('#btnYES').click(function(){
+		$('#btn2YES').click(function(){
 			$.ajax({
 				type: "DELETE",
 				url: "/equipe/"+ id,
