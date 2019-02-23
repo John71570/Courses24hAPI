@@ -160,7 +160,7 @@ $( document ).ready(function() {
 			$row.remove();
 			$.ajax({
 				type: "DELETE",
-				url: "/categorie/"+ uuid,
+				url: "/coureur/"+ uuid,
 				complete: function (xhr, status, errorThrown) {
 					//console.log("Status : " + xhr.status);
 					//console.log("Response : " + xhr.responseText);
