@@ -154,7 +154,7 @@ $( document ).ready(function() {
 
 		});
 
-		$('#btnYESiii').click(function(){
+		$('#btnYES').click(function(){
 			$row.remove();
 			$.ajax({
 				type: "DELETE",

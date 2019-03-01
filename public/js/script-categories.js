@@ -114,7 +114,7 @@ $( document ).ready(function() {
 
 		});
 
-		$('#btnYESSiiii').click(function(){
+		$('#btnYESSi').click(function(){
 			$row.remove();
 			$.ajax({
 				type: "DELETE",
