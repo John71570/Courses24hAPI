@@ -167,9 +167,8 @@ router.get('/admin/categories', function(req, res, next) {
 });
 
 router.get('/deconnexion', function(req, res, next) {
-	if(!req.session.equipe){
-		res.redirect('/');
-	}else{
+	if(true){
+		req.session.equipe = null;
 		req.session.destroy();
 		res.redirect('/');
 	}
@@ -185,7 +184,7 @@ router.get('/connexion', function(req, res, next) {
 
 router.post('/connexion', function(req, res, next) {
 
-	if(req.body.password == 'value'){
+	if(req.body.password == 'pedale@roti24h'){
 		req.session.user = 'admin';
 		res.redirect('/admin');
 	}else{

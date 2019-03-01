@@ -156,11 +156,11 @@ $( document ).ready(function() {
 
 		});
 
-		$('#btnYES').click(function(){
+		$('#btnYESiii').click(function(){
 			$row.remove();
 			$.ajax({
 				type: "DELETE",
-				url: "/categorie/"+ uuid,
+				url: "/coureur/"+ uuid,
 				complete: function (xhr, status, errorThrown) {
 					//console.log("Status : " + xhr.status);
 					//console.log("Response : " + xhr.responseText);
