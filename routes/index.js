@@ -167,11 +167,7 @@ router.get('/admin/categories', function(req, res, next) {
 });
 
 router.get('/deconnexion', function(req, res, next) {
-<<<<<<< HEAD
-	if(true){
 		req.session.equipe = null;
-=======
->>>>>>> cf1f981fea53488b91c6cd4cc60118e08c667cba
 		req.session.destroy();
 		res.redirect('/');
 });
